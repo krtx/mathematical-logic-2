@@ -1,0 +1,482 @@
+\documentclass[dvipdfmx,11pt]{beamer}
+
+\usepackage{bm}
+\usepackage[figurename=,tablename=]{caption}
+\usepackage{multicol}
+\usepackage{bcprules}
+\usepackage{multirow}
+\usepackage{colortbl}
+\usepackage{stmaryrd}
+\usepackage{mathtools}
+\usepackage[yyyymmdd]{datetime}
+\usepackage{url}
+
+\DeclareFontFamily{U}{mathc}{}
+\DeclareFontShape{U}{mathc}{m}{it}%
+{<->s*[1.03] mathc10}{}
+
+\DeclareMathAlphabet{\mathscr}{U}{mathc}{m}{it}
+
+\DeclareMathOperator{\Pow}{\mathscr{Pow}}
+
+\newcommand\DEF{\overset{\mathit{def}}{\equiv}}
+
+\usepackage{catchfilebetweentags}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]{}
+\setbeamerfont{footline}{size=\small}
+\setbeamerfont{date}{size=\footnotesize}
+
+% Use the same font in nested itemizes.
+\setbeamerfont*{itemize/enumerate body}{}
+\setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+\setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+
+% Change font
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\renewcommand{\dateseparator}{-}
+
+\newcommand{\predl}{\textcircled{\scriptsize 述}}
+\newcommand{\propl}{\textcircled{\scriptsize 命}}
+
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{defi}[theorem]{定義}
+\newtheorem{theo}[theorem]{定理}
+
+%% \input{local}
+
+\title{数理論理学}
+\subtitle{5.4 推論}
+\author{樹下}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{目次}
+  \begin{itemize}
+
+  \item 5.4.1 推論の妥当性
+    \begin{itemize}
+    \item \predl{}における意味論的含意（推論）の定義
+    \end{itemize}
+  \item 5.4.2 \propl{}における妥当な推論
+    \begin{itemize}
+    \item \propl{}における妥当な推論は，\predl{}においても妥当
+    \end{itemize}
+
+  \item 5.4.3 全称・存在量化の導入律と除去律
+  \item 5.4.4 \predl{}の推論
+  \item 5.4.5 \(\alpha\)同値性
+  \item 5.4.6 置き換え
+
+    \begin{itemize}
+    \item 5.4.3--5.4.6 は，全称・存在量化に焦点を置いた，\predl{}における命題の同値性についての話
+    \end{itemize}
+
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{5.4.1 推論の妥当性}
+  \predl{}での話
+
+  \begin{defi}[5.66 意味論的含意]
+    \(\Gamma\),\(\Delta\)を論理式列（ただし、\(\left|\Delta\right|\)は高々1）とする．
+    \(\Gamma\)が\(\Delta\)を意味論的に含意する（\(\Gamma\vDash\Delta\)と記す）とは，
+    \(\Gamma\)に含まれるすべての論理式\(\phi\)について\(\llbracket\phi\rrbracket_{M,g}=1\)
+    であり，かつ\(\Delta\)に含まれるすべての論理式\(\psi\)について
+    \(\llbracket\psi\rrbracket_{M,g}=0\)であるような解釈\(\langle M,g\rangle\)が存在しない，
+    ということである．\(\Gamma\vDash\Delta\)ではないとき，\(\Gamma\nvDash\Delta\)と記す．
+  \end{defi}
+
+  \begin{defi}[5.68 充足性]
+    \(\llbracket\phi\rrbracket_{M,g}=1\)であるとき，解釈\(\langle M,g \rangle\)は
+    論理式\(\phi\)を充足するという．解釈\(\langle M,g \rangle\)が論理式\(\Gamma\)に属する
+    すべての論理式を充足するとき，\(\langle M,g \rangle\)は\(\Gamma\)を同時に充足するといい，
+    \(\langle M,g \rangle\vDash\Gamma\)と記す．
+  \end{defi}
+\end{frame}
+
+\begin{frame}{5.4.1 推論の妥当性}
+  \begin{defi}[3.56 充足可能性]
+    論理式列\(\Gamma\)を同時に充足する解釈が存在することを，\(\Gamma\)は充足可能である，という．
+    論理式列\(\Gamma\)が充足可能ではないことを，\(\Gamma\)は充足不能である，という．
+  \end{defi}
+
+  \begin{theo}[3.57]
+    \(\Gamma\)，\(\Delta\)を論理式列とすると，以下が成り立つ．
+    \[
+    \Gamma\vDash\Delta \iff \neg\Delta,\Gamma\textit{が充足不能である．}
+    \]
+  \end{theo}
+
+  定理3.57は一階述語論理においても成立する．
+\end{frame}
+
+\begin{frame}{5.4.2 \propl{}における妥当な推論}
+  \begin{theo}[5.69]
+    \propl{}の恒真式に現れる命題記号を，\predl{}の論理式に置き換えた論理式は，\predl{}の恒真式である．
+  \end{theo}
+
+  \begin{example}
+    \begin{itemize}
+    \item \(P\rightarrow (\neg P\rightarrow Q)\)
+    \item \(x=a\rightarrow (\neg (x=a)\rightarrow (y>b))\)
+    \end{itemize}
+  \end{example}
+
+  ※同じ命題記号は同じ論理式で置き換える
+\end{frame}
+
+\begin{frame}{5.4.2 \propl{}における妥当な推論}
+  \begin{block}{証明}
+  \begin{itemize}
+  \item ある\propl{}の論理式\(\Phi\)に対応する\predl{}の論理式を\(\Phi'\)とする
+  \item \predl{}の任意の解釈\(\langle M,g \rangle\)は\propl{}の解釈とみなすことができる
+    \begin{itemize}
+    \item \(\Phi\)中の各命題記号に対応する\predl{}の論理式の，解釈\(\langle M,g \rangle\)のもとでの値は\(1\)か\(0\)
+    \end{itemize}
+  \item つまり，ある\(\langle M,g \rangle\)に対応する\(I\)があって
+    \(\llbracket\Phi'\rrbracket_{M,g}=\llbracket\Phi\rrbracket_{I}\)
+    \begin{itemize}
+    \item 注意として，復号論理式と真理関数の解釈は，\propl{}と\predl{}で共通している
+    \end{itemize}
+  \item 任意の\(I\)のもとで\(\llbracket\Phi\rrbracket_{I} = 1\)なので\(\llbracket\Phi'\rrbracket_{M,g} = 1\)
+  \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{5.4.2 \propl{}における妥当な推論}
+  \begin{itemize}
+  \item 3.2.4で列挙した\propl{}の恒真式は，それぞれ\predl{}においても恒真式
+  \item 同様のことが推論についても成り立つ
+  \end{itemize}
+
+  \begin{theo}[5.70]
+    \propl{}の妥当な推論に現れる命題記号を，\predl{}の論理式に置き換えた推論は，\predl{}の妥当な推論である．
+  \end{theo}
+
+  \begin{block}{証明}
+    定理~5.69と同様．
+  \end{block}
+
+  \mbox{}
+
+  ある体系で真な主張を保存する拡張を保守的な拡張と言った覚え・・・
+\end{frame}
+
+\begin{frame}{5.4.3 全称・存在量化の導入律と除去律}
+  \fontsize{9pt}{7.2}\selectfont
+  \begin{theo}[5.71 全称除去律]
+    任意の論理式\(\phi,\psi\)，項\(\tau\)，変項\(\xi\)について以下が成り立つ．
+    \[
+    \phi [ \tau / \xi ] \vDash \psi \ \Longrightarrow \ \forall \xi \phi \vDash \psi
+    \]
+  \end{theo}
+  \begin{theo}[5.72 存在導入律]
+    任意の論理式の列\(\Gamma\)，論理式\(\phi\)，項\(\tau\)，変項\(\xi\)について以下が成り立つ．
+    \[
+    \Gamma \vDash \psi [ \tau / \xi ] \ \Longrightarrow \ \Gamma \vDash \exists \xi \phi
+    \]
+  \end{theo}
+  \begin{theo}[5.73 全称導入律]
+    任意の論理式の列\(\Gamma\)，論理式\(\phi\)，変項\(\xi,\zeta\)（ただし\(\zeta \notin \textit{fv}(\Gamma) \cup \textit{fv}(\forall \xi \phi)\)）について以下が成り立つ．
+    \[
+    \Gamma \vDash \phi [ \zeta / \xi ] \ \Longrightarrow \ \Gamma \vDash \forall \xi \phi
+    \]
+  \end{theo}
+  \begin{theo}[5.74 存在除去律]
+    任意の論理式\(\phi,\psi\)，変項\(\xi,\zeta\)（ただし\(\zeta \notin \textit{fv}(\exists \xi \phi) \cup \textit{fv}(\psi)\)）について以下が成り立つ
+    \[
+    \phi [ \zeta / \xi ] \vDash \psi \ \Longrightarrow \ \exists \xi \phi \vDash \psi
+    \]
+  \end{theo}
+\end{frame}
+
+\begin{frame}{5.4.3 全称・存在量化の導入律と除去律}
+  \begin{theo}[5.71 全称除去律]
+    任意の論理式\(\phi,\psi\)，項\(\tau\)，変項\(\xi\)について以下が成り立つ．
+    \[
+    \phi [ \tau / \xi ] \vDash \psi \ \Longrightarrow \ \forall \xi \phi \vDash \psi
+    \]
+  \end{theo}
+
+  \begin{block}{証明}
+    \(\phi [ \tau / \xi ] \vDash \psi\)を前提として任意の\(\langle M,g \rangle\)について\(\langle M,g \rangle \vDash \forall \xi \phi\)ならば\(\llbracket \psi \rrbracket_{M,g}=1\)であることを示せばよい．
+    \[
+    \begin{array}{rll}
+      & \langle M,g \rangle \vDash \forall \xi \phi & \\
+      \iff & \llbracket \forall \xi \phi \rrbracket_{M,g} = 1 & \\
+      \iff & \textit{すべての}a\in D_{M}\textit{について}\llbracket \phi \rrbracket_{M,g[\xi\mapsto a]} = 1 & \\
+      \Longrightarrow & \llbracket \phi \rrbracket_{M,g[\xi \mapsto \llbracket \tau \rrbracket_{M,g}]} = 1 & (\llbracket \tau \rrbracket_{M,g} \in D_{M}) \\
+      \iff & \llbracket \phi [ \tau / \xi ] \rrbracket_{M,g} = 1 & (\textit{補題}5.61(2)) \\
+      \Longrightarrow & \llbracket \psi \rrbracket_{M,g} = 1 & (\textit{前提})
+    \end{array}
+    \]
+  \end{block}
+\end{frame}
+
+\begin{frame}{5.4.3 全称・存在量化の導入律と除去律}
+  ここで，以下の補題をよく使うので，ホワイトボードに書く
+
+  \begin{itemize}
+  \item 補題 5.42 (1)
+    \[
+    \phi[\xi/\xi]\equiv\phi
+    \]
+  \item 補題 5.56
+    \[
+    g[\xi\mapsto a][\zeta\mapsto b]=g[\zeta\mapsto b][\xi\mapsto a] \ (\xi\not\equiv\zeta)
+    \]
+  \item 補題 5.59 (2)
+    \[
+    \xi\not\in\textit{fv}(\phi)\Longrightarrow\llbracket\phi\rrbracket_{M,g}=\llbracket\phi\rrbracket_{M,g[\xi\mapsto a]}
+    \]
+  \item 補題 5.61 (2)
+    \[
+    \llbracket\phi[\tau/\xi]\rrbracket_{M,g}=\llbracket\phi\rrbracket_{M,g[\xi\mapsto\llbracket\tau\rrbracket_{M,g}]}
+    \]
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{5.4.3 全称・存在量化の導入律と除去律}
+  \begin{theo}[5.72 存在導入律]
+    任意の論理式の列\(\Gamma\)，論理式\(\phi\)，項\(\tau\)，変項\(\xi\)について以下が成り立つ．
+    \[
+    \Gamma \vDash \psi [ \tau / \xi ] \ \Longrightarrow \ \Gamma \vDash \exists \xi \phi
+    \]
+  \end{theo}
+
+  \begin{block}{証明}
+    \(\Gamma \vDash \psi [ \tau / \xi ]\)を前提として，任意の\(\langle M,g \rangle\)について，
+    \(\langle M,g \rangle \vDash \Gamma\)ならば\(\llbracket \exists \xi \phi \rrbracket_{M,g}=1\)
+    であることを示せばよい．\(\tau\)を解釈した\(D_M\)の値を\(\xi\)の値として使える
+    \[
+    \begin{array}{rll}
+      & \langle M,g \rangle \vDash \Gamma & \\
+      \Longrightarrow & \llbracket \phi [ \tau / \xi ] \rrbracket_{M,g} = 1 & (\textit{前提}) \\
+      \iff & \llbracket \phi \rrbracket_{M,g[\xi\mapsto\llbracket\tau\rrbracket_{M,g}]} = 1 & (\textit{補題5.61(2)}) \\
+      \Longrightarrow & \exists a \in D_M \ s.t. \ \llbracket \phi \rrbracket_{M,g[\xi\mapsto a]} = 1 & \\
+      \iff & \llbracket \exists \xi \phi \rrbracket_{M,g} = 1 &
+    \end{array}
+    \]
+  \end{block}
+\end{frame}
+
+\begin{frame}{5.4.3 全称・存在量化の導入律と除去律}
+  \begin{theo}[5.73 全称導入律]
+    任意の論理式の列\(\Gamma\)，論理式\(\phi\)，変項\(\xi,\zeta\)（ただし\(\zeta \notin \textit{fv}(\Gamma) \cup \textit{fv}(\forall \xi \phi)\)）について以下が成り立つ．
+    \[
+    \Gamma \vDash \phi [ \zeta / \xi ] \ \Longrightarrow \ \Gamma \vDash \forall \xi \phi
+    \]
+  \end{theo}
+  \begin{block}{証明}
+    \(\Gamma \vDash \phi [ \zeta / \xi ]\)を前提として，任意の\(\langle M,g \rangle\)について，
+    \(\langle M,g \rangle \vDash \Gamma\)ならば\(\llbracket \forall \xi \phi \rrbracket_{M,g}=1\)
+    であることを示せばよい．\(\xi\not\equiv\zeta\)と\(\xi\equiv\zeta\)で場合分けする．
+  \end{block}
+\end{frame}
+
+\begin{frame}{5.4.3 全称・存在量化の導入律と除去律}
+  \(\xi\not\equiv\zeta\)の場合\\\mbox{}\\
+
+  \(\zeta\notin\textit{fv}(\forall\xi\phi)=\textit{fv}(\phi)-\{\xi\}\)と\(\xi\not\equiv\zeta\)
+  より，\(\zeta\notin\textit{fv}(\phi)\)である．任意の\(a(\in D_M)\)について
+  \[
+  \begin{array}{rll}
+    & \langle M,g \rangle\vDash\Gamma & \\
+    \Longrightarrow & \langle M,g[\zeta\mapsto a]\rangle\vDash\Gamma & (\zeta\notin\textit{fv}(\Gamma), \textit{補題5.59(2)}) \\
+    \Longrightarrow & \llbracket\phi[\zeta/\xi]\rrbracket_{M,g[\zeta\mapsto a]} \vDash \Gamma & (\textit{前提}(\Gamma \vDash \phi [ \zeta / \xi ]))\\
+    \iff & \llbracket\phi\rrbracket_{M,g[\zeta\mapsto a][\xi\mapsto \llbracket\zeta\rrbracket_{M,g[\zeta\mapsto a]}]} = 1 & (\textit{補題5.61(2)})\\
+    \iff & \llbracket\phi\rrbracket_{M,g[\zeta\mapsto a][\xi\mapsto a]} = 1 & \\
+    \iff & \llbracket\phi\rrbracket_{M,g[\xi\mapsto a][\zeta\mapsto a]} = 1 & (\zeta\not\equiv\xi,\textit{補題5.56}) \\
+    \Longrightarrow & \llbracket\phi\rrbracket_{M,g[\xi\mapsto a]} = 1 & (\zeta\notin\textit{fv}(\phi),\textit{補題5.59(2)}) \\
+    \iff & \llbracket\forall\xi\phi\rrbracket_{M,g} = 1 & \\
+  \end{array}
+  \]
+\end{frame}
+
+\begin{frame}{5.4.3 全称・存在量化の導入律と除去律}
+  \(\xi\equiv\zeta\)の場合\\\mbox{}\\
+
+  任意の\(a\in D_M\)について
+
+  \[
+  \begin{array}{rll}
+    & \langle M,g \rangle \vDash \Gamma & \\
+    \Longrightarrow & \langle M,g[\zeta\mapsto a] \rangle & (\zeta\notin\textit{fv}(\Gamma), \textit{補題5.59(2)}) \\
+    \iff & \langle M,g[\xi\mapsto a] \rangle & (\zeta\equiv\xi) \\
+    \Longrightarrow & \llbracket \phi \rrbracket_{M,g[\xi\mapsto a]} = 1 & (\textit{前提}) \\
+    \iff & \llbracket\forall\xi\phi\rrbracket_{M,g} = 1 & \\
+  \end{array}
+  \]
+\end{frame}
+
+\begin{frame}{5.4.3 全称・存在量化の導入律と除去律}
+  \begin{theo}[5.74 存在除去律]
+    任意の論理式\(\phi,\psi\)，変項\(\xi,\zeta\)（ただし\(\zeta \notin \textit{fv}(\exists \xi \phi) \cup \textit{fv}(\psi)\)）について以下が成り立つ
+    \[
+    \phi [ \zeta / \xi ] \vDash \psi \ \Longrightarrow \ \exists \xi \phi \vDash \psi
+    \]
+  \end{theo}
+
+  \begin{block}{証明}
+    \(\phi[\zeta/\xi]\vDash\psi\)を前提として，任意の\(\langle M,g \rangle\)について，
+    \(\llbracket\psi\rrbracket_{M,g}=0\)ならば\(\langle M,g \rangle\nvDash\exists\xi\phi\)
+    であることを示せばよい（対偶より）．
+    \(\xi\not\equiv\zeta\)と\(\xi\equiv\zeta\)で場合分けする．
+  \end{block}
+\end{frame}
+
+\begin{frame}{5.4.3 全称・存在量化の導入律と除去律}
+  \(\xi\not\equiv\zeta\)の場合\\\mbox{}\\
+
+  \(\zeta\not\in\textit{fv}(\exists\xi\phi)=\textit{fv}(\phi)-\{\xi\}\)より，
+  \(\zeta\not\in\textit{fv}(\phi)\)である．任意の\(a(\in D_M)\)について
+
+  \[
+  \begin{array}{rll}
+    & \llbracket\psi\rrbracket_{M,g}=0 & \\
+    \Longrightarrow & \llbracket\psi\rrbracket_{M,g[\zeta\mapsto a]}=0 & (\zeta\not\in\textit{fv}(\psi),\textit{補題5.59(2)}) \\
+    \Longrightarrow & \llbracket\phi[\zeta/\xi]\rrbracket_{M,g[\zeta\mapsto a]}=0 & (\textit{前提の対偶}) \\
+    \iff & \llbracket\phi\rrbracket_{M,g[\zeta\mapsto a][\xi\mapsto\llbracket\zeta\rrbracket_{M,g[\zeta\mapsto a]}]}=0 & (\textit{補題5.61(2)}) \\
+    \iff & \llbracket\phi\rrbracket_{M,g[\zeta\mapsto a][\xi\mapsto a]}=0 & \\
+    \iff & \llbracket\phi\rrbracket_{M,g[\xi\mapsto a][\zeta\mapsto a]}=0 & (\zeta\not\equiv,\textit{補題5.56}) \\
+    \iff & \llbracket\phi\rrbracket_{M,g[\xi\mapsto a]}=0 & (\zeta\not\in\textit{fv}(\phi),\textit{補題5.59(2)}) \\
+    \iff & \llbracket\exists\xi\phi\rrbracket_{M,g}=0 & 
+  \end{array}
+  \]
+\end{frame}
+
+\begin{frame}{5.4.3 全称・存在量化の導入律と除去律}
+  前提
+
+  \[
+  \phi[\zeta/\xi]\vDash\psi \iff \forall \langle M,g \rangle \ \llbracket\phi[\zeta/\xi]\rrbracket_{M,g} = 1 \ \textit{ならば}\ \llbracket\psi\rrbracket_{M,g} \neq 0
+  \]
+
+  の対偶
+
+  \[
+  \forall \langle M,g \rangle \ \llbracket\psi\rrbracket_{M,g} = 0 \ \textit{ならば}\ \llbracket\phi[\zeta/\xi]\rrbracket_{M,g}\neq 1
+  \]
+\end{frame}
+
+\begin{frame}{5.4.3 全称・存在量化の導入律と除去律}
+  \(\xi\equiv\zeta\)の場合\\\mbox{}\\
+
+  任意の\(a(\in D_M)\)について
+  \[
+  \begin{array}{rll}
+    & \llbracket\psi\rrbracket_{M,g}=0 & \\
+    \Longrightarrow & \llbracket\psi\rrbracket_{M,g[\zeta\mapsto a]}=0 & (\zeta\not\in\textit{fv}(\psi),\textit{補題5.59(2)}) \\
+    \iff & \llbracket\psi\rrbracket_{M,g[\xi\mapsto a]}=0 & (\zeta\equiv\xi) \\
+    \Longrightarrow & \llbracket\phi[\zeta/\xi]\rrbracket_{M,g[\xi\mapsto a]}=0 & (\textit{前提の対偶}) \\
+    \iff & \llbracket\phi\rrbracket_{M,g[\xi\mapsto a]}=0 & (\zeta\equiv\xi,(\textit{定理5.42(1)})) \\
+    \iff & \llbracket\exists\xi\phi\rrbracket_{M,g}=0 &
+  \end{array}
+  \]
+
+\end{frame}
+
+\begin{frame}{5.4.3 全称・存在量化の導入律と除去律}
+  \begin{block}{解説5.75}
+    全称導入律の但し書きを無視して間違った推論を導出する例
+
+    \begin{description}
+    \item [推論] \(\forall x \exists y F(x,y) \vDash \exists y \forall x F(x,y) \)
+    \item [過程]
+      \[
+      \begin{array}{rrcll}
+        (1) & \exists y F(x,y) & \vDash & \exists y F(x,y) & (\textit{同一律}) \\
+        (2) & \forall x \exists y F(x,y) & \vDash & \exists y F(x,y) & (\textit{(1)と全称除去律}) \\
+        (3) & F(x,y) & \vDash & F(x,y) & (\textit{同一律}) \\
+        (4) & F(x,y) & \vDash & \forall x F(x,y) & (\textit{(3)と全称導入律}) \\
+        (5) & \forall x F(x,y) & \vDash & \forall x F(x,y) & (\textit{同一律}) \\
+        (6) & \forall x F(x,y) & \vDash & \exists y \forall x F(x,y) & (\textit{(5)と存在導入律}) \\
+        (7) & F(x,y) & \vDash & \exists y \forall x F(x,y) & (\textit{(4),(6)とカット}) \\
+        (8) & \exists y F(x,y) & \vDash & \exists y \forall x F(x,y) & (\textit{(7)と存在除去律}) \\
+        (9) & \forall x \exists y F(x,y) & \vDash & \exists y \forall x F(x,y) & (\textit{(2),(8)とカット}) \\
+      \end{array}
+      \]
+    \end{description}
+  \end{block}
+\end{frame}
+
+\begin{frame}{5.4.3 全称・存在量化の導入律と除去律}
+  間違ってるところ
+  \[
+  \begin{array}{rrcll}
+    (3) & F(x,y) & \vDash & F(x,y) & (\textit{同一律}) \\
+    (4) & F(x,y) & \vDash & \forall x F(x,y) & (\textit{(3)と全称導入律})
+  \end{array}
+  \]
+  全称導入律において
+  \[
+  \begin{array}{rcl}
+    \Gamma & := & F(x,y) \\
+    \phi & := & F(x,y) \\
+    \xi & := & x \\
+    \zeta & := & x
+  \end{array}
+  \]
+  とすれば導出されるが，\(x \in \textit{fv}(\Gamma) = \textit{fv}(F(x,y))\)なので但し書きを満たしていない
+\end{frame}
+
+\begin{frame}{5.4.3 全称・存在量化の導入律と除去律}
+  \begin{block}{解説5.76}
+    存在除去律の但し書きを無視して間違った推論を導出する例
+
+    \begin{description}
+    \item [推論] \(\exists x F(x) \vDash \forall x F(x) \)
+    \item [過程]
+      \[
+      \begin{array}{rrcll}
+        (1) & F(x) & \vDash & F(x) & (\textit{同一律}) \\
+        (2) & \exists x F(x) & \vDash & F(x) & (\textit{(1)と存在除去律}) \\
+        (3) & \exists x F(x) & \vDash & \forall x F(x) & (\textit{(2)と全称導入律}) \\
+      \end{array}
+      \]
+    \end{description}
+
+    (2)は存在除去律で\(\psi \ := \ F(x), \phi \ := \ F(x), \zeta \ := \ x, \xi \ := \ x\)
+    とすれば導出されるが，\(x\in\textit{fv}(F(x))\)なので但し書きを満たしていない
+  \end{block}
+\end{frame}
+
+\begin{frame}{5.4.3 全称・存在量化の導入律と除去律}
+  \begin{block}{解説5.76}
+    存在除去律の但し書きを無視して間違った推論を導出する例，別の過程
+
+    \begin{description}
+    \item [推論] \(\exists x F(x) \vDash \forall x F(x) \)
+    \item [過程]
+      \[
+      \begin{array}{rrcll}
+        (1) & F(x) & \vDash & F(x) & (\textit{同一律}) \\
+        (2) & F(x) & \vDash & \forall x F(x) & (\textit{(1)と全称導入律}) \\
+        (3) & \exists x F(x) & \vDash & \forall x F(x) & (\textit{(2)と存在除去律}) \\
+      \end{array}
+      \]
+    \end{description}
+
+    (2)が全称導入律の但し書きを満たしていない（\(x\in\textit{fv}(\Gamma)=\textit{fv}(F(x))\)）
+  \end{block}
+\end{frame}
+
+\begin{frame}{5.4.3 全称・存在量化の導入律と除去律}
+\end{frame}
+
+\begin{frame}{5.4.4 一階述語論理の推論}
+\end{frame}
+
+\begin{frame}{5.4.5 \(\alpha\)同値性}
+\end{frame}
+
+\begin{frame}{5.4.6 置き換え}
+\end{frame}
+
+\end{document}
+
