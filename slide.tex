@@ -8,6 +8,7 @@
 \usepackage{colortbl}
 \usepackage{stmaryrd}
 \usepackage{mathtools}
+\usepackage{mathabx}
 \usepackage[yyyymmdd]{datetime}
 \usepackage{url}
 
@@ -466,7 +467,178 @@
   \end{block}
 \end{frame}
 
-\begin{frame}{5.4.3 全称・存在量化の導入律と除去律}
+\begin{frame}{5.4.4 一階述語論理の推論}
+  \begin{theo}[5.77 全称例化律]
+    \[
+    \forall \xi \phi \vDash \phi [ \tau / \xi ]
+    \]
+  \end{theo}
+  すべてのものがある属性を持つ，という一般的な言明を前提として，具体例への言明が帰結される推論
+  \begin{theo}[5.79 存在汎化律]
+    \[
+    \phi[\tau/\xi]\vDash\exists \xi \phi
+    \]
+  \end{theo}
+  ある属性を持つ具体例を前提として，その属性を持つものが存在する，という言明が帰結される推論
+\end{frame}
+
+\begin{frame}{5.4.4 一階述語論理の推論}
+  \begin{theo}[5.77 全称例化律]
+    \[
+    \forall \xi \phi \vDash \phi [ \tau / \xi ]
+    \]
+  \end{theo}
+
+  \begin{block}{証明}
+    \[
+    \begin{array}{rrcll}
+      (1) & \phi[\tau/\xi] & \vDash & \phi[\tau/\xi] & (\textit{同一律}) \\
+      (2) & \forall \xi \phi & \vDash & \phi[\tau/\xi] & (\textit{(1)と全称除去律}) \\
+    \end{array}
+    \]
+  \end{block}
+\end{frame}
+
+\begin{frame}{5.4.4 一階述語論理の推論}
+  \begin{theo}[5.79 存在汎化律]
+    \[
+    \phi[\tau/\xi]\vDash\exists \xi \phi
+    \]
+  \end{theo}
+
+  \begin{block}{証明}
+    \[
+    \begin{array}{rrcll}
+      (1) & \phi [ \tau / \xi ] & \vDash & \phi [ \tau / \xi ] & (\textit{同一律}) \\
+      (2) & \phi [ \tau / \xi ] & \vDash & \exists \xi \phi & (\textit{(1)と存在導入律}) \\
+    \end{array}
+    \]
+  \end{block}
+\end{frame}
+
+\begin{frame}{5.4.4 一階述語論理の推論}
+  \begin{theo}[5.81 量化の影響がない場合]
+    \(\xi \not \in \textit{fv}(\phi)\)のとき
+    \[
+    \forall \xi \phi \Dashv \vDash \phi, \exists \xi \phi \Dashv \vDash \phi
+    \]
+  \end{theo}
+  \begin{block}{練習問題 5.82}
+    定理~5.81は補題~5.59(2)より明らかであるが，定理~5.71--定理~5.74のみを用いた証明を考えよ．
+  \end{block}
+  \begin{block}{証明}
+    \(\forall \xi \phi \Dashv \vDash \phi\)について
+    \[
+    \begin{array}{rrcll}
+      (1) & \phi [ \xi / \xi ] & \vDash & \phi & (\textit{同一律，または系5.63}) \\
+      (2) & \forall \xi \phi & \vDash & \phi & (\textit{(1)と全称除去律}) \\
+      (a) & \phi & \vDash & \phi [ \xi / \xi ] & (\textit{同一律，または系5.63}) \\
+      (b) & \phi & \vDash & \forall \xi \phi & (\textit{(a)と全称導入律}, \xi \not \in \textit{fv}(\phi), \xi \not \in \textit{fv}(\forall\xi\phi)) \\
+    \end{array}
+    \]
+  \end{block}
+\end{frame}
+
+\begin{frame}{5.4.4 一階述語論理の推論}
+  \begin{block}{証明 (cont.)}
+    \(\exists \xi \phi \Dashv \vDash \phi\)について
+    \[
+    \begin{array}{rrcll}
+      (1) & \phi [ \xi / \xi ] & \vDash & \phi & (\textit{同一律，または系5.63}) \\
+      (2) & \exists \xi \phi & \vDash & \phi & (\textit{(1)と存在除去律}, \xi \not \in \textit{fv}(\phi), \xi \not \in \textit{fv}(\exists\xi\phi)) \\
+      (a) & \phi & \vDash & \phi [ \xi / \xi ] & (\textit{同一律，または系5.63}) \\
+      (b) & \phi & \vDash & \exists \xi \phi & (\textit{(a)と存在導入律}) \\
+    \end{array}
+    \]
+  \end{block}
+\end{frame}
+
+\begin{frame}{5.4.4 一階述語論理の推論}
+  \begin{theo}[5.83 \(\forall\)と\(\exists\)が相互に定義可能であること]
+    \[
+    \neg\forall\xi\phi \Dashv\vDash \exists\xi(\neg\phi),
+    \neg\exists\xi\phi \Dashv\vDash \forall\xi(\neg\phi)
+    \]
+  \end{theo}
+  \begin{block}{左式の証明}
+    \(\Rightarrow\)
+    \[
+    \begin{array}{rrcll}
+      (1) & \neg\phi[\zeta/\xi] & \vDash & \neg\phi[\zeta/\xi] & \textit{同一律} \\
+      (2) & \neg\phi[\zeta/\xi] & \vDash & \exists\xi(\neg\phi) & \textit{存在導入律} \\
+      (3) & \neg\exists\xi(\neg\phi), \neg\phi[\zeta/\xi] & \vDash & \bot & \textit{2と背理法 p.54} \\
+      (4) & \neg\exists\xi(\neg\phi) & \vDash & \phi[\zeta/\xi] & \textit{3と背理法} \\
+      (5) & \neg\exists\xi(\neg\phi) & \vDash & \forall\xi\phi & \zeta\not\in\textit{fv}(\neg\exists\xi(\neg\phi))\cup\textit{fv}(\forall\xi\phi) \\
+      & & & & \textit{と全称導入律} \\
+      (6) & \neg \forall \xi \phi, \neg\exists\xi(\neg\phi) & \vDash & \bot & \textit{5と背理法} \\
+      (7) & \neg \forall \xi \phi & \vDash & \exists \xi (\neg \phi) & \textit{6と背理法} \\
+    \end{array}
+    \]
+  \end{block}
+\end{frame}
+
+\begin{frame}{5.4.4 一階述語論理の推論}
+  \begin{block}{左式の証明 cont.}
+    \(\Leftarrow\)
+    \[
+    \begin{array}{rrcll}
+      (1) & \neg\neg\forall\xi\phi & \vDash & \forall\xi\phi & \textit{二重否定除去律} \\
+      (2) & \forall\xi\phi & \vDash & \phi[\zeta/\xi] & \textit{全称例化律} \\
+      (3) & \phi[\zeta/\xi],\neg\phi[\zeta/\xi] & \vDash & \bot & \textit{恒真式}\phi\wedge\neg\phi\leftrightarrow\bot \\
+      (4) & \neg\neg\forall\xi\phi,\neg\phi[\zeta/\xi] & \vDash & \bot & \textit{1,2,3とカット p.52}\\
+      (5) & \neg\phi[\zeta/\xi] & \vDash & \neg\forall\xi\phi & \textit{4と背理法} \\
+      (6) & \exists\xi(\neg\phi) & \vDash & \neg\forall\xi\phi & \zeta\not\in\textit{fv}(\exists\xi(\neg\phi))\cup\textit{fv}(\neg\forall\xi\phi) \\
+      & & & & \textit{と存在除去律} \\
+    \end{array}
+    \]
+  \end{block}
+\end{frame}
+
+\begin{frame}{5.4.4 一階述語論理の推論}
+  \begin{block}{練習問題~5.84 右式の証明}
+    \(\Rightarrow\)
+    \[
+    \begin{array}{rrcll}
+      (1) & \neg\neg\phi[\zeta/\xi] & \vDash & \phi[\zeta/\xi] & \textit{二重否定除去律} \\
+      (2) & \phi[\zeta/\xi] & \vDash & \exists\xi\phi & \textit{存在汎化律(ただし\(\zeta\not\in\phi\))} \\
+      (3) & \exists\xi\phi, \neg\exists\xi\phi & \vDash & \bot & \textit{恒真式}\phi\wedge\neg\phi\leftrightarrow\bot \\
+      (4) & \neg\neg\phi[\zeta/\xi], \neg\exists\xi\phi & \vDash & \bot & \textit{1,2,3とカット} \\
+      (5) & \neg\exists\xi\phi & \vDash & \neg\phi[\zeta/\xi] & \textit{背理法} \\
+      (6) & \neg\exists\xi\phi & \vDash & \forall\xi(\neg\phi) & \zeta\not\in\textit{fv}(\neg\exists\xi\phi)\cup\textit{fv}(\neg\phi) \\
+      & & & & \textit{と全称導入律}
+    \end{array}
+    \]
+  \end{block}
+\end{frame}
+
+\begin{frame}{5.4.4 一階述語論理の推論}
+  \begin{block}{練習問題~5.84 右式の証明 cont.}
+    \(\Leftarrow\)
+    \[
+    \begin{array}{rrcll}
+      (1) & \forall\xi(\neg\phi) & \vDash & \forall\xi(\neg\phi) & \textit{同一律} \\
+      (2) & \forall\xi(\neg\phi) & \vDash & \neg\phi[\zeta/\xi] & \textit{全称例化律(ただし\(\zeta\not\in\phi\))} \\
+      (3) & \forall\xi(\neg\phi), \phi[\zeta/\xi] & \vDash & \bot & \textit{2と背理法} \\
+      (4) & \phi[\zeta/\xi] & \vDash & \neg\forall\xi(\neg\phi) & \textit{3と背理法} \\
+      (5) & \exists\xi\phi & \vDash & \neg\forall\xi(\neg\phi) & \zeta\not\in\textit{fv}(\exists\xi\phi)\cup\textit{fv}(\neg\forall\xi(\neg\phi)) \\
+      & & & & \textit{と存在除去律} \\
+      (6) & \forall\xi(\neg\phi), \exists\xi\phi & \vDash & \bot & \textit{5と背理法} \\
+      (7) & \forall\xi(\neg\phi) & \vDash & \neg\exists\xi\phi & \textit{6と背理法} \\
+    \end{array}
+    \]
+  \end{block}
+\end{frame}
+
+\begin{frame}{5.4.4 一階述語論理の推論}
+  \begin{theo}[5.85]
+    \(\xi\not\in\textit{fv}(\phi)\)のとき以下が成り立つ
+    \begin{eqnarray*}
+      \phi\wedge\forall\zeta\phi & \Dashv\vDash & \forall\xi(\phi\wedge\psi) \\
+      \phi\wedge\exists\zeta\phi & \Dashv\vDash & \exists\xi(\phi\wedge\psi) \\
+      \phi\vee\forall\zeta\phi & \Dashv\vDash & \forall\xi(\phi\vee\psi) \\
+      \phi\vee\exists\zeta\phi & \Dashv\vDash & \exists\xi(\phi\vee\psi)
+    \end{eqnarray*}
+  \end{theo}
 \end{frame}
 
 \begin{frame}{5.4.4 一階述語論理の推論}
