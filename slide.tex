@@ -530,10 +530,10 @@
     \(\forall \xi \phi \Dashv \vDash \phi\)について
     \[
     \begin{array}{rrcll}
-      (1) & \phi [ \xi / \xi ] & \vDash & \phi & (\textit{同一律，または系5.63}) \\
-      (2) & \forall \xi \phi & \vDash & \phi & (\textit{(1)と全称除去律}) \\
-      (a) & \phi & \vDash & \phi [ \xi / \xi ] & (\textit{同一律，または系5.63}) \\
-      (b) & \phi & \vDash & \forall \xi \phi & (\textit{(a)と全称導入律}, \xi \not \in \textit{fv}(\phi), \xi \not \in \textit{fv}(\forall\xi\phi)) \\
+      (\Rightarrow_1) & \phi [ \xi / \xi ] & \vDash & \phi & (\textit{定理5.42(1)と同一律}) \\
+      (\Rightarrow_2) & \forall \xi \phi & \vDash & \phi & ((\Rightarrow_1)\textit{と全称除去律}) \\
+      (\Leftarrow_1) & \phi & \vDash & \phi [ \xi / \xi ] & (\textit{定理5.42(1)と同一律}) \\
+      (\Leftarrow_2) & \phi & \vDash & \forall \xi \phi & ((\Leftarrow_1)\textit{と全称導入律}, \xi \not \in \textit{fv}(\phi), \xi \not \in \textit{fv}(\forall\xi\phi)) \\
     \end{array}
     \]
   \end{block}
@@ -544,10 +544,10 @@
     \(\exists \xi \phi \Dashv \vDash \phi\)について
     \[
     \begin{array}{rrcll}
-      (1) & \phi [ \xi / \xi ] & \vDash & \phi & (\textit{同一律，または系5.63}) \\
-      (2) & \exists \xi \phi & \vDash & \phi & (\textit{(1)と存在除去律}, \xi \not \in \textit{fv}(\phi), \xi \not \in \textit{fv}(\exists\xi\phi)) \\
-      (a) & \phi & \vDash & \phi [ \xi / \xi ] & (\textit{同一律，または系5.63}) \\
-      (b) & \phi & \vDash & \exists \xi \phi & (\textit{(a)と存在導入律}) \\
+      (\Rightarrow_1) & \phi [ \xi / \xi ] & \vDash & \phi & (\textit{定理5.42(1)と同一律}) \\
+      (\Rightarrow_2) & \exists \xi \phi & \vDash & \phi & ((\Rightarrow_1)\textit{と存在除去律}, \xi \not \in \textit{fv}(\phi), \xi \not \in \textit{fv}(\exists\xi\phi)) \\
+      (\Leftarrow_1) & \phi & \vDash & \phi [ \xi / \xi ] & (\textit{定理5.42(1)と同一律}) \\
+      (\Leftarrow_2) & \phi & \vDash & \exists \xi \phi & ((\Leftarrow_1)\textit{と存在導入律}) \\
     \end{array}
     \]
   \end{block}
@@ -633,18 +633,80 @@
   \begin{theo}[5.85]
     \(\xi\not\in\textit{fv}(\phi)\)のとき以下が成り立つ
     \begin{eqnarray*}
-      \phi\wedge\forall\zeta\phi & \Dashv\vDash & \forall\xi(\phi\wedge\psi) \\
-      \phi\wedge\exists\zeta\phi & \Dashv\vDash & \exists\xi(\phi\wedge\psi) \\
-      \phi\vee\forall\zeta\phi & \Dashv\vDash & \forall\xi(\phi\vee\psi) \\
-      \phi\vee\exists\zeta\phi & \Dashv\vDash & \exists\xi(\phi\vee\psi)
+      \phi\wedge\forall\xi\psi & \Dashv\vDash & \forall\xi(\phi\wedge\psi) \\
+      \phi\wedge\exists\xi\psi & \Dashv\vDash & \exists\xi(\phi\wedge\psi) \\
+      \phi\vee\forall\xi\psi & \Dashv\vDash & \forall\xi(\phi\vee\psi) \\
+      \phi\vee\exists\xi\psi & \Dashv\vDash & \exists\xi(\phi\vee\psi)
     \end{eqnarray*}
   \end{theo}
 \end{frame}
 
 \begin{frame}{5.4.4 一階述語論理の推論}
+  \begin{block}{練習問題~5.86}
+    定理~5.85の証明 (1)
+    \[
+    \begin{array}{rll}
+      & \llbracket \forall \xi (\phi \wedge \psi) \rrbracket_{M,g} = 1 & \\
+      \iff & \textit{任意の}a \in D_M\textit{について} \llbracket \phi \wedge \psi \rrbracket_{M,g[a\mapsto a]} = 1 & \\
+      \iff & \textit{任意の}a \in D_M\textit{について} \llbracket \phi \rrbracket_{M,g[\xi\mapsto a]} = 1 \textit{かつ} \llbracket \psi \rrbracket_{M,g[\xi\mapsto a]} = 1 & \\
+      \iff & \textit{任意の}a \in D_M\textit{について} \llbracket \phi \rrbracket_{M,g} = 1 \textit{かつ} \llbracket \psi \rrbracket_{M,g[\xi\mapsto a]} = 1 & \\
+      \iff & \llbracket \phi \rrbracket_{M,g} = 1 \textit{かつ} \textit{任意の}a \in D_M\textit{について} \llbracket \psi \rrbracket_{M,g[\xi\mapsto a]} = 1 & \\
+      \iff & \llbracket \phi \rrbracket_{M,g} = 1 \textit{かつ} \llbracket \forall \xi \psi \rrbracket_{M,g} = 1 & \\
+      \iff & \llbracket \phi \wedge \forall \xi \psi \rrbracket_{M,g} = 1 & \\
+    \end{array}
+    \]
+  \end{block}
+
+  4行目から5行目があやしい→ホワイトボードで別証
 \end{frame}
 
 \begin{frame}{5.4.5 \(\alpha\)同値性}
+  \begin{theo}[5.87 (\(\alpha\)同値性)]
+    \(\zeta\not\in\textit{fv}(\phi)\)のとき
+    \begin{eqnarray*}
+      \forall \xi \phi & \Dashv\vDash & \forall \zeta ( \phi [ \zeta / \xi ] ) \\
+      \exists \xi \phi & \Dashv\vDash & \exists \zeta ( \phi [ \zeta / \xi ] )
+    \end{eqnarray*}
+  \end{theo}
+
+  \[
+  \begin{array}{rll}
+    & \llbracket \phi [ \zeta / \xi ] \rrbracket_{M,g[\zeta\mapsto a]} & \\
+    = & \llbracket \phi \rrbracket_{M,g[\zeta\mapsto a][\xi\mapsto\llbracket\zeta\rrbracket_{M,g[\zeta\mapsto a]}]} & \\
+    = & \llbracket \phi \rrbracket_{M,g[\zeta\mapsto a][\xi\mapsto a]} & \\
+    = & \llbracket \phi \rrbracket_{M,g[\xi\mapsto a][\zeta\mapsto a]} & \\
+    = & \llbracket \phi \rrbracket_{M,g[\xi\mapsto a]} & 
+  \end{array}
+  \]
+
+  \[
+  \begin{array}{rll}
+    & \llbracket \forall \phi \rrbracket_{M,g} = 1 & \\
+    \iff & \textit{すべての}a\in D_M\textit{について}\llbracket\phi\rrbracket_{M,g[\zeta\mapsto a]} = 1 & \\
+    \iff & \textit{すべての}a\in D_M\textit{について}\llbracket\phi[\zeta/\xi]\rrbracket_{M,g[\zeta\mapsto a]} = 1 & \\
+    \iff & \llbracket\forall\zeta(\phi[\zeta/\xi])\rrbracket_{M,g[\zeta\mapsto a]} = 1 &
+
+  \end{array}
+  \]
+
+\end{frame}
+
+\begin{frame}{5.4.6 置き換え}
+  \begin{itemize}
+  \item \predl{}の論理式の置き換え操作は\propl{}でも可能
+  \item \propl{}では量化論理式について考える必要がある
+  \end{itemize}
+
+  \begin{theo}[5.89]
+    \begin{eqnarray*}
+      \phi \Dashv \vDash \psi & \Rightarrow & \forall \xi \phi \Dashv \vDash \forall \xi \psi \\
+      \phi \Dashv \vDash \psi & \Rightarrow & \exists \xi \phi \Dashv \vDash \exists \xi \psi \\
+    \end{eqnarray*}
+  \end{theo}
+
+\end{frame}
+
+\begin{frame}{5.4.6 置き換え}
 \end{frame}
 
 \begin{frame}{5.4.6 置き換え}
