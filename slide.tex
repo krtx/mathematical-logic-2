@@ -641,24 +641,24 @@
   \end{theo}
 \end{frame}
 
-\begin{frame}{5.4.4 一階述語論理の推論}
-  \begin{block}{練習問題~5.86}
-    定理~5.85の証明 (1)
-    \[
-    \begin{array}{rll}
-      & \llbracket \forall \xi (\phi \wedge \psi) \rrbracket_{M,g} = 1 & \\
-      \iff & \textit{任意の}a \in D_M\textit{について} \llbracket \phi \wedge \psi \rrbracket_{M,g[a\mapsto a]} = 1 & \\
-      \iff & \textit{任意の}a \in D_M\textit{について} \llbracket \phi \rrbracket_{M,g[\xi\mapsto a]} = 1 \textit{かつ} \llbracket \psi \rrbracket_{M,g[\xi\mapsto a]} = 1 & \\
-      \iff & \textit{任意の}a \in D_M\textit{について} \llbracket \phi \rrbracket_{M,g} = 1 \textit{かつ} \llbracket \psi \rrbracket_{M,g[\xi\mapsto a]} = 1 & \\
-      \iff & \llbracket \phi \rrbracket_{M,g} = 1 \textit{かつ} \textit{任意の}a \in D_M\textit{について} \llbracket \psi \rrbracket_{M,g[\xi\mapsto a]} = 1 & \\
-      \iff & \llbracket \phi \rrbracket_{M,g} = 1 \textit{かつ} \llbracket \forall \xi \psi \rrbracket_{M,g} = 1 & \\
-      \iff & \llbracket \phi \wedge \forall \xi \psi \rrbracket_{M,g} = 1 & \\
-    \end{array}
-    \]
-  \end{block}
+%% \begin{frame}{5.4.4 一階述語論理の推論}
+%%   \begin{block}{練習問題~5.86}
+%%     定理~5.85の証明 (1)
+%%     \[
+%%     \begin{array}{rll}
+%%       & \llbracket \forall \xi (\phi \wedge \psi) \rrbracket_{M,g} = 1 & \\
+%%       \iff & \textit{任意の}a \in D_M\textit{について} \llbracket \phi \wedge \psi \rrbracket_{M,g[a\mapsto a]} = 1 & \\
+%%       \iff & \textit{任意の}a \in D_M\textit{について} \llbracket \phi \rrbracket_{M,g[\xi\mapsto a]} = 1 \textit{かつ} \llbracket \psi \rrbracket_{M,g[\xi\mapsto a]} = 1 & \\
+%%       \iff & \textit{任意の}a \in D_M\textit{について} \llbracket \phi \rrbracket_{M,g} = 1 \textit{かつ} \llbracket \psi \rrbracket_{M,g[\xi\mapsto a]} = 1 & \\
+%%       \iff & \llbracket \phi \rrbracket_{M,g} = 1 \textit{かつ} \textit{任意の}a \in D_M\textit{について} \llbracket \psi \rrbracket_{M,g[\xi\mapsto a]} = 1 & \\
+%%       \iff & \llbracket \phi \rrbracket_{M,g} = 1 \textit{かつ} \llbracket \forall \xi \psi \rrbracket_{M,g} = 1 & \\
+%%       \iff & \llbracket \phi \wedge \forall \xi \psi \rrbracket_{M,g} = 1 & \\
+%%     \end{array}
+%%     \]
+%%   \end{block}
 
-  4行目から5行目があやしい→ホワイトボードで別証
-\end{frame}
+%%   4行目から5行目があやしい→ホワイトボードで別証
+%% \end{frame}
 
 \begin{frame}{5.4.5 \(\alpha\)同値性}
   \begin{theo}[5.87 (\(\alpha\)同値性)]
@@ -668,33 +668,58 @@
       \exists \xi \phi & \Dashv\vDash & \exists \zeta ( \phi [ \zeta / \xi ] )
     \end{eqnarray*}
   \end{theo}
+\end{frame}
 
-  \[
-  \begin{array}{rll}
-    & \llbracket \phi [ \zeta / \xi ] \rrbracket_{M,g[\zeta\mapsto a]} & \\
-    = & \llbracket \phi \rrbracket_{M,g[\zeta\mapsto a][\xi\mapsto\llbracket\zeta\rrbracket_{M,g[\zeta\mapsto a]}]} & \\
-    = & \llbracket \phi \rrbracket_{M,g[\zeta\mapsto a][\xi\mapsto a]} & \\
-    = & \llbracket \phi \rrbracket_{M,g[\xi\mapsto a][\zeta\mapsto a]} & \\
-    = & \llbracket \phi \rrbracket_{M,g[\xi\mapsto a]} & 
-  \end{array}
-  \]
+\begin{frame}{5.4.5 \(\alpha\)同値性}
+  \begin{block}{上式の証明}
+    \(\zeta\equiv\xi\)の場合は定理~5.42(1)より\(\phi\equiv\phi[\zeta/\xi]\)なので自明。\(\zeta\nequiv\xi\)の場合
 
-  \[
-  \begin{array}{rll}
-    & \llbracket \forall \phi \rrbracket_{M,g} = 1 & \\
-    \iff & \textit{すべての}a\in D_M\textit{について}\llbracket\phi\rrbracket_{M,g[\zeta\mapsto a]} = 1 & \\
-    \iff & \textit{すべての}a\in D_M\textit{について}\llbracket\phi[\zeta/\xi]\rrbracket_{M,g[\zeta\mapsto a]} = 1 & \\
-    \iff & \llbracket\forall\zeta(\phi[\zeta/\xi])\rrbracket_{M,g[\zeta\mapsto a]} = 1 &
+    \[
+    \begin{array}{rll}
+      & \llbracket \phi [ \zeta / \xi ] \rrbracket_{M,g[\zeta\mapsto a]} & \\
+      = & \llbracket \phi \rrbracket_{M,g[\zeta\mapsto a][\xi\mapsto\llbracket\zeta\rrbracket_{M,g[\zeta\mapsto a]}]} & \textit{補題~5.61(2)}\\
+      = & \llbracket \phi \rrbracket_{M,g[\zeta\mapsto a][\xi\mapsto a]} & \\
+      = & \llbracket \phi \rrbracket_{M,g[\xi\mapsto a][\zeta\mapsto a]} & \xi\nequiv\zeta\textit{と補題~5.56} \\
+      = & \llbracket \phi \rrbracket_{M,g[\xi\mapsto a]} & \zeta\not\in\textit{fv}(\phi)\textit{と補題~5.59(2)}
+    \end{array}
+    \]
 
-  \end{array}
-  \]
+    したがって、以下が成り立つ
 
+    \[
+    \begin{array}{rll}
+      & \llbracket \forall \xi \phi \rrbracket_{M,g} = 1 & \\
+      \iff & \textit{すべての}a\in D_M\textit{について}\llbracket\phi\rrbracket_{M,g[\xi\mapsto a]} = 1 & \\
+      \iff & \textit{すべての}a\in D_M\textit{について}\llbracket\phi[\zeta/\xi]\rrbracket_{M,g[\zeta\mapsto a]} = 1 & \\
+      \iff & \llbracket\forall\zeta(\phi[\zeta/\xi])\rrbracket_{M,g} = 1 &
+    \end{array}
+    \]
+  \end{block}
+\end{frame}
+
+\begin{frame}{5.4.5 \(\alpha\)同値性}
+  \begin{block}{練習問題5.88 下式の証明}
+    \(\zeta\equiv\xi\)の場合は定理~5.42(1)より\(\phi\equiv\phi[\zeta/\xi]\)なので自明。
+    \(\zeta\nequiv\xi\)の場合\(\llbracket\phi\rrbracket_{M,g[\xi\mapsto a]}=\llbracket\phi[\zeta/\xi]\rrbracket_{M,g[\zeta\mapsto a]}\)なので
+
+    \[
+    \begin{array}{rll}
+      & \llbracket \exists \xi \phi \rrbracket_{M,g} = 1 & \\
+      \iff & \exists a \in D_{M} \ s.t. \ \llbracket\phi\rrbracket_{M,g[\xi\mapsto a]} = 1 & \\
+      \iff & \exists a \in D_{M} \ s.t. \ \llbracket\phi[\zeta/\xi]\rrbracket_{M,g[\zeta\mapsto a]} = 1 & \\
+      \iff & \llbracket\exists\zeta(\phi[\zeta/\xi])\rrbracket_{M,g} = 1 &
+    \end{array}
+    \]
+  \end{block}
 \end{frame}
 
 \begin{frame}{5.4.6 置き換え}
   \begin{itemize}
-  \item \predl{}の論理式の置き換え操作は\propl{}でも可能
-  \item \propl{}では量化論理式について考える必要がある
+  \item \propl{}の論理式の置き換え操作 (3.3.5項)は\predl{}でも可能
+    \begin{itemize}
+    \item 置き換え操作=真部分論理式が意味論的に同値ならば意味論的に同値という定理~3.86を繰り返し用いる証明
+    \end{itemize}
+  \item \predl{}で置き換え操作が成立するためには、量化論理式について真部分論理式が意味論的に同値であれば意味論的に同値であることを示す必要がある
   \end{itemize}
 
   \begin{theo}[5.89]
@@ -707,9 +732,35 @@
 \end{frame}
 
 \begin{frame}{5.4.6 置き換え}
+  \begin{block}{上式の証明}
+    \(\forall\xi\phi\vDash\forall\xi\psi\)について
+
+    \[
+    \begin{array}{rrcll}
+      (1) & \phi[\xi/\xi] & \vDash & \psi[\xi/\xi] & \textit{前提と定理~5.42(1)} \\
+      (2) & \forall\xi\phi & \vDash & \psi[\xi/\xi] & \textit{(1)と全称除去律} \\
+      (3) & \forall\xi\phi & \vDash & \forall\xi\psi & \xi\not\in\textit{fv}(\forall\xi\phi)\cup\textit{fv}(\forall\xi\psi)\textit{と全称導入律}
+    \end{array}
+    \]
+
+    \(\forall\xi\psi\vDash\forall\xi\phi\)も同様
+  \end{block}
 \end{frame}
 
 \begin{frame}{5.4.6 置き換え}
+  \begin{block}{練習問題~5.90下式の証明}
+    \(\exists\xi\phi\vDash\exists\xi\psi\)について
+
+    \[
+    \begin{array}{rrcll}
+      (1) & \phi[\xi/\xi] & \vDash & \psi[\xi/\xi] & \textit{前提と定理~5.42(1)} \\
+      (2) & \phi[\xi/\xi] & \vDash & \exists\xi\psi & \textit{(1)と存在導入律} \\
+      (3) & \exists\xi\phi & \vDash & \exists\xi\psi & \xi\not\in\textit{fv}(\exists\xi\phi)\cup\textit{fv}(\exists\xi\psi)\textit{と存在除去律}
+    \end{array}
+    \]
+
+    \(\exists\xi\psi\vDash\exists\xi\phi\)も同様
+  \end{block}
 \end{frame}
 
 \end{document}
